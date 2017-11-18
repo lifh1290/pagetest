@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="pagetest.mapper.PersonMapper">
+	<resultMap id="BaseResultMap" type="pagetest.entity.Person">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="age" property="age" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,name,age
+	</sql>
+
+	<!-- 根据ID查询数据 -->
+	<select id="findByid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from person
+		where id = #{id}
+	</select>
+	
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from person
+	</select>
+	
+	<insert id="insert" parameterType="pagetest.entity.Person">
+		insert into 
+		person
+		(name,age)
+		values 
+		(#{name},#{age})
+	</insert>
+	
+	<insert id="update" parameterType="pagetest.entity.Person">
+		update 
+		person
+		set
+		name = #{name},
+		age = #{age}
+		where 
+		id = #{id}
+	</insert>
+</mapper>  
